@@ -12,30 +12,29 @@
 
     <div id="modal-1" class="customPopup">
         <div class="customPopup-body">
-            <button class="customPopup-close" onclick="closeModal()">
+            <button class="customPopup-close" onclick="closeModal('modal-1')">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>                    
             </button>
-            <form action="" class="form">
-                <h3>Авторизация</h3>
-                <hr/>
-
+            <h3>Авторизация</h3>
+            <hr/>
+            <form action="" class="formValidate">
                 <div class="inputGroup">
                     <div class="inputGroup-title">
                         <span>Ваш email</span>
                     </div>
-                    <input type="email" id="email" placeholder="edit@gmail.com" required>
-                    <div class="error-message"></div>
+                    <input type="email" placeholder="edit@gmail.com" required oninput="verifyInput(this);">
+                    <div class="inputGroup-message"></div>
                 </div>
 
                 <div class="inputGroup">
                     <div class="inputGroup-title">
                         <span>Пароль</span>
-                        <button type="button" class="btn-link">Забыл пароль</button>
+                        <button type="button" onclick="closeModal('modal-1'), openModal('modal-3')" class="btn-link">Забыл пароль</button>
                     </div>
                     <div class="passInput">
-                        <input type="password" id="password" placeholder="Введите пароль" required>
+                        <input type="password" placeholder="Введите пароль" required oninput="verifyInput(this);">
                         <button type="button" class="passInput-stateBtn" onclick="changePassVisibility(this.previousElementSibling)">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.01677 11.0943C1.90328 10.9146 1.84654 10.8248 1.81477 10.6862C1.79091 10.5821 1.79091 10.4179 1.81477 10.3138C1.84654 10.1752 1.90328 10.0854 2.01677 9.90569C2.95461 8.42071 5.74617 4.66667 10.0003 4.66667C14.2545 4.66667 17.0461 8.42071 17.9839 9.90569C18.0974 10.0854 18.1541 10.1752 18.1859 10.3138C18.2098 10.4179 18.2098 10.5821 18.1859 10.6862C18.1541 10.8248 18.0974 10.9146 17.9839 11.0943C17.0461 12.5793 14.2545 16.3333 10.0003 16.3333C5.74617 16.3333 2.95461 12.5793 2.01677 11.0943Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -43,48 +42,53 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="error-message"></div>
+                    <div class="inputGroup-message"></div>
                 </div>
 
                 <hr/>
 
-                <button type="submit" disabled class="btn-fill btn-submit w-100 mb-32">Войти</button>
-                <button type="button" class="btn-link w-100">
-                    <svg class="mr-6" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.9165 2.83332H4.4665C3.48641 2.83332 2.99637 2.83332 2.62202 3.02406C2.29274 3.19184 2.02502 3.45956 1.85724 3.78884C1.6665 4.16319 1.6665 4.65323 1.6665 5.63332V10.5333C1.6665 11.5134 1.6665 12.0035 1.85724 12.3778C2.02502 12.7071 2.29274 12.9748 2.62202 13.1426C2.99637 13.3333 3.48641 13.3333 4.4665 13.3333H9.3665C10.3466 13.3333 10.8366 13.3333 11.211 13.1426C11.5403 12.9748 11.808 12.7071 11.9758 12.3778C12.1665 12.0035 12.1665 11.5134 12.1665 10.5333V8.08332M5.16649 9.83332H6.14331C6.42866 9.83332 6.57134 9.83332 6.70561 9.80109C6.82465 9.77251 6.93845 9.72537 7.04284 9.6614C7.16057 9.58926 7.26146 9.48837 7.46324 9.28659L13.0415 3.70832C13.5248 3.22507 13.5248 2.44157 13.0415 1.95832C12.5583 1.47507 11.7748 1.47507 11.2915 1.95832L5.71322 7.53659C5.51145 7.73837 5.41056 7.83926 5.33841 7.95699C5.27444 8.06138 5.2273 8.17518 5.19872 8.29422C5.16649 8.42849 5.16649 8.57117 5.16649 8.85652V9.83332Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>                    
-                    <span>Регистрация</span>
-                </button>
+                <button type="submit" disabled class="btn-fill verifiable-btn w-100 mb-32">Войти</button>
             </form>
+
+            <button type="button" onclick="closeModal('modal-1'), openModal('modal-2')" class="btn-link w-100">
+                <svg class="mr-6" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.9165 2.83332H4.4665C3.48641 2.83332 2.99637 2.83332 2.62202 3.02406C2.29274 3.19184 2.02502 3.45956 1.85724 3.78884C1.6665 4.16319 1.6665 4.65323 1.6665 5.63332V10.5333C1.6665 11.5134 1.6665 12.0035 1.85724 12.3778C2.02502 12.7071 2.29274 12.9748 2.62202 13.1426C2.99637 13.3333 3.48641 13.3333 4.4665 13.3333H9.3665C10.3466 13.3333 10.8366 13.3333 11.211 13.1426C11.5403 12.9748 11.808 12.7071 11.9758 12.3778C12.1665 12.0035 12.1665 11.5134 12.1665 10.5333V8.08332M5.16649 9.83332H6.14331C6.42866 9.83332 6.57134 9.83332 6.70561 9.80109C6.82465 9.77251 6.93845 9.72537 7.04284 9.6614C7.16057 9.58926 7.26146 9.48837 7.46324 9.28659L13.0415 3.70832C13.5248 3.22507 13.5248 2.44157 13.0415 1.95832C12.5583 1.47507 11.7748 1.47507 11.2915 1.95832L5.71322 7.53659C5.51145 7.73837 5.41056 7.83926 5.33841 7.95699C5.27444 8.06138 5.2273 8.17518 5.19872 8.29422C5.16649 8.42849 5.16649 8.57117 5.16649 8.85652V9.83332Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                    
+                <span>Регистрация</span>
+            </button>
         </div>
     </div>
 
     <div id="modal-2" class="customPopup">
         <div class="customPopup-body">
-            <button class="customPopup-close" onclick="closeModal()">
+            <button class="customPopup-close" onclick="closeModal('modal-2')">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>                    
             </button>
-            <form action="" class="form">
-                <h3>Регистрация</h3>
-                <hr/>
-
+            <h3>Регистрация</h3>
+            <div class="tabs">
+                <button type="button" onclick="tabChange(this)" class="tab-btn active" data-tab="tab-1">Частное лицо</button>
+                <hr>
+                <button type="button" onclick="tabChange(this)" class="tab-btn" data-tab="tab-2">Компания и начать размещать склад</button>
+            </div>
+            <hr/>
+            
+            <form action="" class="formValidate tab-content" id="tab-1">
                 <div class="inputGroup">
                     <div class="inputGroup-title">
                         <span>Ваш email</span>
                     </div>
-                    <input type="email" id="email" placeholder="edit@gmail.com" required>
-                    <div class="error-message"></div>
+                    <input type="email" placeholder="edit@gmail.com" required oninput="verifyInput(this);">
+                    <div class="inputGroup-message"></div>
                 </div>
 
                 <div class="inputGroup">
                     <div class="inputGroup-title">
                         <span>Пароль</span>
-                        <button type="button" class="btn-link">Забыл пароль</button>
                     </div>
                     <div class="passInput">
-                        <input type="password" id="password" placeholder="Введите пароль" required>
+                        <input type="password" placeholder="Введите пароль" required oninput="verifyInput(this);">
                         <button type="button" class="passInput-stateBtn" onclick="changePassVisibility(this.previousElementSibling)">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.01677 11.0943C1.90328 10.9146 1.84654 10.8248 1.81477 10.6862C1.79091 10.5821 1.79091 10.4179 1.81477 10.3138C1.84654 10.1752 1.90328 10.0854 2.01677 9.90569C2.95461 8.42071 5.74617 4.66667 10.0003 4.66667C14.2545 4.66667 17.0461 8.42071 17.9839 9.90569C18.0974 10.0854 18.1541 10.1752 18.1859 10.3138C18.2098 10.4179 18.2098 10.5821 18.1859 10.6862C18.1541 10.8248 18.0974 10.9146 17.9839 11.0943C17.0461 12.5793 14.2545 16.3333 10.0003 16.3333C5.74617 16.3333 2.95461 12.5793 2.01677 11.0943Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -92,18 +96,224 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="error-message"></div>
+                    <div class="inputGroup-message"></div>
+                </div>
+
+                <label class="checkboxGroup">
+                    <input type="checkbox">
+                    <span>Согласен с <a href="" class="link">пользовательским соглашением</a></span>
+                </label>
+
+                <hr/>
+
+                <button type="submit" disabled class="btn-fill verifiable-btn w-100 mb-32">Зарегистрироваться</button>
+            </form>
+            <form action="" class="formValidate tab-content d-none" id="tab-2">
+                <h6>Информация о компании</h6>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>ИНН</span>
+                    </div>
+                    <input type="text" placeholder="Введите ИНН компании" required oninput="verifyInput(this);">
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Компания</span>
+                    </div>
+                    <input type="text" placeholder="Введите полное название компании">
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Адрес</span>
+                    </div>
+                    <input type="text" placeholder="Введите адрес, начиная с города">
+                </div>
+
+                <div class="cols">
+                    <div class="col-50">
+                        <div class="inputGroup">
+                            <div class="inputGroup-title">
+                                <span>КПП</span>
+                            </div>
+                            <input type="text" placeholder="Введите КПП">
+                        </div>
+                    </div>
+                    <div class="col-50">
+                        <div class="inputGroup">
+                            <div class="inputGroup-title">
+                                <span>ОГРН</span>
+                            </div>
+                            <input type="text" placeholder="Введите ОГРН">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup mb-32">
+                    <div class="inputGroup-title">
+                        <span>Генеральный директор</span>
+                    </div>
+                    <input type="text" placeholder="Введите ФИО полностью">
+                </div>
+
+                <h6>Информация о складе</h6>
+
+                <fieldset>
+                    <p>Склад №1</p>
+                    <div class="inputGroup">
+                        <div class="inputGroup-title">
+                            <span>Город</span>
+                        </div>
+                        <input type="text" placeholder="Введите город">
+                    </div>
+                    <div class="inputGroup">
+                        <div class="inputGroup-title">
+                            <span>Адрес</span>
+                        </div>
+                        <input type="text" placeholder="Введите адрес, начиная с города">
+                    </div>
+                    <div class="cols">
+                        <div class="col-50">
+                            <div class="inputGroup">
+                                <div class="inputGroup-title">
+                                    <span>Телефон</span>
+                                </div>
+                                <input type="text" placeholder="Введите адрес, начиная с города">
+                            </div>
+                        </div>
+                        <div class="col-50">
+                            <div class="inputGroup">
+                                <div class="inputGroup-title">
+                                    <span>Режим работы</span>
+                                </div>
+                                <div class="cols">
+                                    <div class="col-50">
+                                        <input type="num" placeholder="с">
+                                    </div>
+                                    <div class="col-50">
+                                        <input type="num" placeholder="до">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </fieldset>
+                <button type="button" class="btn-link mb-32">
+                    <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.3658 6.88426L6.375 2.5H7.625L7.6158 6.88426L12 6.875V8.125L7.6158 8.13426V12.5H6.3658V8.13426L2 8.125V6.875L6.3658 6.88426Z" fill="currentColor"/>
+                    </svg>                        
+                    <span>Добавить склад</span>
+                </button>
+
+                <h6>Представитель</h6>
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>ФИО</span>
+                    </div>
+                    <input type="text" placeholder="Введите ФИО полностью" required oninput="verifyInput(this);">
+                </div>
+
+                <div class="cols">
+                    <div class="col-70">
+                        <div class="inputGroup">
+                            <div class="inputGroup-title">
+                                <span>Телефон</span>
+                            </div>
+                            <input type="tel" placeholder="+7 ( _ _ _ ) _ _ _ - _ _ - _ _" required oninput="verifyInput(this);">
+                        </div>
+                    </div>
+                    <div class="col-30">
+                        <div class="inputGroup">
+                            <div class="inputGroup-title">
+                                <span>Доб.</span>
+                            </div>
+                            <input type="num" placeholder="Доб.номер" required oninput="verifyInput(this);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Мобильный</span>
+                    </div>
+                    <input type="tel" placeholder="+7 ( _ _ _ ) _ _ _ - _ _ - _ _" required oninput="verifyInput(this);">
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Сайт компании</span>
+                    </div>
+                    <input type="text" placeholder="Сайт компании" required oninput="verifyInput(this);">
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Ваш email</span>
+                    </div>
+                    <input type="email" placeholder="edit@gmail.com" required oninput="verifyInput(this);">
+                    <div class="inputGroup-message"></div>
+                </div>
+
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Пароль</span>
+                    </div>
+                    <div class="passInput">
+                        <input type="password" placeholder="Введите пароль" required oninput="verifyInput(this);">
+                        <button type="button" class="passInput-stateBtn" onclick="changePassVisibility(this.previousElementSibling)">
+                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.01677 11.0943C1.90328 10.9146 1.84654 10.8248 1.81477 10.6862C1.79091 10.5821 1.79091 10.4179 1.81477 10.3138C1.84654 10.1752 1.90328 10.0854 2.01677 9.90569C2.95461 8.42071 5.74617 4.66667 10.0003 4.66667C14.2545 4.66667 17.0461 8.42071 17.9839 9.90569C18.0974 10.0854 18.1541 10.1752 18.1859 10.3138C18.2098 10.4179 18.2098 10.5821 18.1859 10.6862C18.1541 10.8248 18.0974 10.9146 17.9839 11.0943C17.0461 12.5793 14.2545 16.3333 10.0003 16.3333C5.74617 16.3333 2.95461 12.5793 2.01677 11.0943Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10.0003 13C11.381 13 12.5003 11.8807 12.5003 10.5C12.5003 9.11929 11.381 8.00001 10.0003 8.00001C8.61962 8.00001 7.50034 9.11929 7.50034 10.5C7.50034 11.8807 8.61962 13 10.0003 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="inputGroup-message"></div>
                 </div>
 
                 <hr/>
 
-                <button type="submit" disabled class="btn-fill btn-submit w-100 mb-32">Войти</button>
-                <button type="button" class="btn-link w-100">
-                    <svg class="mr-6" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.9165 2.83332H4.4665C3.48641 2.83332 2.99637 2.83332 2.62202 3.02406C2.29274 3.19184 2.02502 3.45956 1.85724 3.78884C1.6665 4.16319 1.6665 4.65323 1.6665 5.63332V10.5333C1.6665 11.5134 1.6665 12.0035 1.85724 12.3778C2.02502 12.7071 2.29274 12.9748 2.62202 13.1426C2.99637 13.3333 3.48641 13.3333 4.4665 13.3333H9.3665C10.3466 13.3333 10.8366 13.3333 11.211 13.1426C11.5403 12.9748 11.808 12.7071 11.9758 12.3778C12.1665 12.0035 12.1665 11.5134 12.1665 10.5333V8.08332M5.16649 9.83332H6.14331C6.42866 9.83332 6.57134 9.83332 6.70561 9.80109C6.82465 9.77251 6.93845 9.72537 7.04284 9.6614C7.16057 9.58926 7.26146 9.48837 7.46324 9.28659L13.0415 3.70832C13.5248 3.22507 13.5248 2.44157 13.0415 1.95832C12.5583 1.47507 11.7748 1.47507 11.2915 1.95832L5.71322 7.53659C5.51145 7.73837 5.41056 7.83926 5.33841 7.95699C5.27444 8.06138 5.2273 8.17518 5.19872 8.29422C5.16649 8.42849 5.16649 8.57117 5.16649 8.85652V9.83332Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>                    
-                    <span>Регистрация</span>
-                </button>
+                <label class="checkboxGroup">
+                    <input type="checkbox">
+                    <span>Согласен с <a href="" class="link">пользовательским соглашением</a></span>
+                </label>
+
+                <button type="submit" disabled class="btn-fill verifiable-btn w-100 mb-32">Зарегистрироваться</button>
+            </form>
+
+            <button type="button" onclick="closeModal('modal-2'), openModal('modal-1')" class="btn-link w-100">
+                <svg class="mr-6" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.9165 2.83332H4.4665C3.48641 2.83332 2.99637 2.83332 2.62202 3.02406C2.29274 3.19184 2.02502 3.45956 1.85724 3.78884C1.6665 4.16319 1.6665 4.65323 1.6665 5.63332V10.5333C1.6665 11.5134 1.6665 12.0035 1.85724 12.3778C2.02502 12.7071 2.29274 12.9748 2.62202 13.1426C2.99637 13.3333 3.48641 13.3333 4.4665 13.3333H9.3665C10.3466 13.3333 10.8366 13.3333 11.211 13.1426C11.5403 12.9748 11.808 12.7071 11.9758 12.3778C12.1665 12.0035 12.1665 11.5134 12.1665 10.5333V8.08332M5.16649 9.83332H6.14331C6.42866 9.83332 6.57134 9.83332 6.70561 9.80109C6.82465 9.77251 6.93845 9.72537 7.04284 9.6614C7.16057 9.58926 7.26146 9.48837 7.46324 9.28659L13.0415 3.70832C13.5248 3.22507 13.5248 2.44157 13.0415 1.95832C12.5583 1.47507 11.7748 1.47507 11.2915 1.95832L5.71322 7.53659C5.51145 7.73837 5.41056 7.83926 5.33841 7.95699C5.27444 8.06138 5.2273 8.17518 5.19872 8.29422C5.16649 8.42849 5.16649 8.57117 5.16649 8.85652V9.83332Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                    
+                <span>Авторизация</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-3" class="customPopup">
+        <div class="customPopup-body">
+            <button class="customPopup-close" onclick="closeModal('modal-3')">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                    
+            </button>
+            <h3>Восстановить пароль</h3>
+            <hr/>
+            <form action="" class="formValidate">
+                <div class="inputGroup">
+                    <div class="inputGroup-title">
+                        <span>Ваш email</span>
+                    </div>
+                    <input type="email" placeholder="edit@gmail.com" required oninput="verifyInput(this);">
+                    <div class="inputGroup-message"></div>
+                </div>
+
+                <hr/>
+
+                <button type="submit" disabled class="btn-fill verifiable-btn w-100 mb-32">Восстановить</button>
             </form>
         </div>
     </div>

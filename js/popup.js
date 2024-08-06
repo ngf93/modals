@@ -5,8 +5,8 @@ function openModal(id) {
 }
 
 // close currently open modal
-function closeModal() {
-    document.querySelector('.customPopup.open').classList.remove('open');
+function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
     document.body.classList.remove('customPopup-open');
 }
 
@@ -25,101 +25,53 @@ function changePassVisibility(input) {
     input.type == 'password' ? input.type = 'text' : input.type = 'password';
 }
 
+/* tabs */
+function tabChange(btn) {
+  Array.from(document.querySelectorAll('.tab-btn')).map(el=>
+    el.classList.remove('active')
+  );
+  Array.from(document.querySelectorAll('.tab-content')).map(el=>
+    el.classList.add('d-none')
+  );
 
-class FormValidator {
-    constructor(form, fields) {
-      this.form = form
-      this.fields = fields
-    }
-  
-    initialize() {
-      this.validateOnEntry()
-      this.validateOnSubmit()
-      this.validateButtonSubmit()
-    }
-  
-    validateOnSubmit() {
-      let self = this
-  
-      this.form.addEventListener('submit', e => {
-          e.preventDefault()
-          self.fields.forEach(field => {
-          const input = document.querySelector(`#${field}`)
-          self.validateFields(input)
-        })
-      })
-    }
-  
-    validateOnEntry() {
-        let self = this
-        this.fields.forEach(field => {
-            const input = document.querySelector(`#${field}`)
-    
-            input.addEventListener('input', event => {
-            self.validateFields(input)
-            })
-        })
-    }
-  
-    validateFields(field) {
-  
-      // Check presence of values
-      if (field.value.trim() === "") {
-        this.setStatus(field, `${field.previousElementSibling.innerText} Введите данные`, "error")
-      } else {
-        this.setStatus(field, null, "success")
-      }
-  
-      // check for a valid email address
-      if (field.type === "email") {
-        const re = /\S+@\S+\.\S+/
-        if (re.test(field.value)) {
-          this.setStatus(field, null, "success")
-        } else {
-          this.setStatus(field, "Введите данные", "error")
-        }
-      }
-  
-      // Password confirmation edge case
-      if (field.id === "password_confirmation") {
-        const passwordField = this.form.querySelector('#password')
-  
-        if (field.value.trim() == "") {
-          this.setStatus(field, "Введите данные", "error")
-        } else if (field.value != passwordField.value) {
-          this.setStatus(field, "Пароли не совпадают", "error")
-        } else {
-          this.setStatus(field, null, "success")
-        }
-      }
-    }
-  
-    setStatus(field, message, status) {
-      const errorMessage = field.parentElement.querySelector('.error-message')
-  
-      if (status === "success") {
-        if (errorMessage) { errorMessage.innerText = "" }
-        field.classList.remove('input-error')
-      }
-  
-      if (status === "error") {
-        field.closest('.inputGroup').querySelector('.error-message').innerText = message
-        field.classList.add('input-error')
-      }
-    }
-
-    validateButtonSubmit() {
-        let flag = this.fields.every(field.status == "success");
-        if (flag){
-            this.form.querySelector('.btn-submit').removeAttribute('disabled');
-        } else {
-            this.form.querySelector('.btn-submit').setAttribute('disabled', 'disabled');
-        }
-    }
+  btn.classList.add('active');
+  document.getElementById(btn.dataset.tab).classList.remove('d-none');
 }
-  
-const form = document.querySelector('.form')
-const fields = ["email", "password"]
 
-const validator = new FormValidator(form, fields)
-validator.initialize();
+/*validation*/
+function verifyInput(inp){
+  let formValidated = inp.closest('form');
+  let requiredElems = Array.from(formValidated.querySelectorAll('[required]'));
+  console.log(requiredElems.length);
+
+  if(requiredElems.length == 0){
+    return;
+  } else {
+    let flag = requiredElems.every(notNull);
+
+    if (flag){
+      console.log('все поля заполнены');
+      formValidated.querySelector('.verifiable-btn').removeAttribute('disabled');
+    } else {
+      console.log('есть не заполненые поля');
+      formValidated.querySelector('.verifiable-btn').setAttribute('disabled', 'disabled');
+    }
+  }
+
+  function notNull(element) {
+    if(element.type == 'radio' || element.type == 'checkbox'){
+      let name = element.name;
+      console.log(name);
+      let arrBtns = Array.from(formValidated.querySelectorAll('input[name="'+name+'"]'));
+      console.log(arrBtns.some(isChecked));
+      if(arrBtns.some(isChecked)){return element;}
+    } else if(element.value.trim() != ''){return element;}
+  }
+
+  function isChecked(el){
+    console.log('value = '+el.value.trim());
+    if(el.checked && el.value.trim() != ''){
+      return el;
+    }
+  }
+}

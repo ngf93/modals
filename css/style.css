@@ -14,16 +14,6 @@ body {
     font-weight: 300;
 }
 
-/* HELPERS */
-.w-100 {
-    width: 100%;
-}
-.mb-32 {
-    margin-bottom: 32px;
-}
-.mr-6 {
-    margin-right: 6px;
-}
 
 /* INPUTS */
 input {
@@ -54,6 +44,42 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color: va
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {color: var(--color-font); opacity: .4;}
 input::-ms-input-placeholder, textarea::-ms-input-placeholder {color: var(--color-font); opacity: .4;}
 input::placeholder, textarea::placeholder {color: var(--color-font); opacity: .4;}
+input[type="checkbox"]{
+    appearance: none;
+    border: 2px solid #D6D6D6;
+    border-radius: 6px;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+    transition: border-color 250ms ease-in;
+    position: relative;
+}
+input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+input[type="checkbox"]:checked {
+    border-color: var(--color-main);
+}
+input[type="checkbox"]:checked::after {
+    background: var(--color-main);
+}
+
+fieldset {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
 
 .passInput {
     position: relative;
@@ -85,7 +111,7 @@ input::placeholder, textarea::placeholder {color: var(--color-font); opacity: .4
 
 .inputGroup {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 .inputGroup-title {
     display: flex;
@@ -94,7 +120,7 @@ input::placeholder, textarea::placeholder {color: var(--color-font); opacity: .4
     align-items: center;
     margin-bottom: 10px;
 }
-.error-message {
+.inputGroup-message {
     position: absolute;
     top: 100%;
     left: 0%;
@@ -102,6 +128,17 @@ input::placeholder, textarea::placeholder {color: var(--color-font); opacity: .4
     font-size: 12px;
     font-weight: 500;
     color: var(--error);
+}
+
+.checkboxGroup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-bottom: 14px;
+}
+.checkboxGroup span {
+    flex: 1;
 }
 
 /* BUTTONS */
@@ -148,6 +185,16 @@ button {
     color: var(--color-hover);
 }
 
+.link {
+    color: var(--color-main);
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 250ms ease-in;
+}
+.link:hover, 
+.link:focus {
+    color: var(--color-hover);
+}
 
 /* Popup styles */
 body.customPopup-open {
@@ -182,6 +229,12 @@ body.customPopup-open {
     margin: 0px;
     font-size: 26px;
     font-weight: 700;
+}
+.customPopup-body h6 {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
 }
 .customPopup-body hr {
     display: block;
@@ -220,6 +273,69 @@ body.customPopup-open {
     height: 20px;
 }
 
+
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 1em;
+}
+.tabs hr {
+    background-color: rgba(0, 0, 0, .08);
+    opacity: 1;
+    width: 1px;
+    height: 20px;
+    border: none;
+    margin: 0px 1em;
+}
+.tabs button {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    color: var(--color-font);
+    opacity: 0.4;
+}
+.tabs button.active {
+    color: var(--color-main);
+    opacity: 1;
+    font-weight: 500;
+}
+.d-none {
+    display: none;
+}
+
+
+/* cols*/
+.cols {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.col-30 {
+    width: 30%;
+}
+.col-50 {
+    width: 50%;
+}
+.col-70 {
+    width: 70%;
+}
+
+/* HELPERS */
+.w-100 {
+    width: 100%;
+}
+.mb-32 {
+    margin-bottom: 32px;
+}
+.mb-16 {
+    margin-bottom: 16px;
+}
+.mr-6 {
+    margin-right: 6px;
+}
+
 @media (max-width: 575px) {
     .mb-32 {
         margin-bottom: 16px;
@@ -232,5 +348,8 @@ body.customPopup-open {
     }
     .customPopup-body hr {
         margin: 16px 0px;
+    }
+    .tabs hr {
+        margin: 0px .5em;
     }
 }
